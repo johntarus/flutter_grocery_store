@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sg_grocery/utils/validators.dart';
 
 import '../../../components/auth_footer.dart';
 import '../../../components/social_buttons.dart';
@@ -31,12 +32,14 @@ class _RegisterFormState extends State<RegisterForm> {
             label: "Your Name",
             hintText: "Enter Your Name",
             controller: _nameController,
+            validator: Validators.validateName,
           ),
           const SizedBox(height: 18),
           AuthTextField(
             label: "Email Id",
             hintText: "Enter Your Email Id",
             controller: _emailController,
+            validator: Validators.validateEmail,
           ),
           const SizedBox(height: 18),
           AuthTextField(
@@ -44,6 +47,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: "Enter Your Password",
             controller: _passwordController,
             obscureText: true,
+            validator: Validators.validatePassword,
           ),
           const SizedBox(height: 18),
           AuthTextField(
@@ -51,12 +55,17 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: "Confirm Your Password",
             controller: _confirmPasswordController,
             obscureText: true,
+            validator: (value) => Validators.validateConfirmPassword(
+              _passwordController.text,
+              value,
+            ),
           ),
           const SizedBox(height: 18),
           AuthTextField(
             label: "Contact Number",
             hintText: "Enter Your Contact Number",
             controller: _contactController,
+            validator: Validators.validateContact,
           ),
           const SizedBox(height: 26),
           SizedBox(
@@ -65,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  // Registration logic here
+                  //TODO: Add Registration logic here
                 }
               },
               style: ElevatedButton.styleFrom(
