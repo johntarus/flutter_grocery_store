@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-          // 📦 Top Categories
+          // 🏷️ Top Categories Section
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -223,14 +223,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'Top Categories',
                     style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
                   Text(
                     'Explore all',
-                    style: GoogleFonts.montserrat(color: AppColors.themeGreen),
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.themeGreen,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -238,27 +242,86 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 100,
+              height: 150, // slightly increased to allow for floating image
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 4,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                itemCount: topCategories.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 20),
                 itemBuilder: (_, index) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 60,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFE7F3EC),
-                          shape: BoxShape.circle,
+                  final category = topCategories[index];
+                  return SizedBox(
+                    width: 88,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.topCenter,
+                      children: [
+                        // Main card body
+                        Container(
+                          margin: const EdgeInsets.only(top: 43),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 6,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              // Light green background section
+                              Container(
+                                height: 50,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.themeGreenLight,
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(20),
+                                  ),
+                                ),
+                              ),
+                              // Green bottom label
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.themeGreen,
+                                  borderRadius: const BorderRadius.vertical(
+                                    bottom: Radius.circular(5),
+                                  ),
+                                ),
+                                child: Text(
+                                  category.name,
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: const Icon(Icons.shopping_bag),
-                      ),
-                      const SizedBox(height: 8),
-                      const Text("Groceries"),
-                    ],
+
+                        // Floating image
+                        Positioned(
+                          top: 10,
+                          child: Image.asset(
+                            category.imagePath,
+                            width: 75,
+                            height: 70,
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
@@ -276,33 +339,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'Top Products',
                     style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
                   Text(
                     'Explore all',
-                    style: GoogleFonts.montserrat(color: AppColors.themeGreen),
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.themeGreen,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
+
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 160,
+              height: 185, // Increased height to accommodate larger image
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: 4,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                separatorBuilder: (_, __) => const SizedBox(width: 14),
                 itemBuilder: (_, index) {
                   return Container(
-                    width: 120,
-                    padding: const EdgeInsets.all(8),
+                    width: 150,
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.themeGreenLight,
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
@@ -311,13 +378,77 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Stack(
                       children: [
-                        Container(height: 60, color: Colors.green.shade100),
-                        const SizedBox(height: 8),
-                        const Text('Fortune rice'),
-                        const Text('\$3/kg'),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 18,
+                            left: 18,
+                            right: 18,
+                            bottom: 12, // Reduced bottom padding
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            // Prevent column from expanding
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 100,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'assets/images/fortune.png',
+                                  fit: BoxFit.contain,
+                                  height: 100,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Fortune rice',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                '\$3/kg',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.darkColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: 10,
+                          left: 0,
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                              right: 20,
+                              top: 4,
+                              left: 6,
+                              bottom: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.themeGreen,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              ),
+                            ),
+                            child: Text(
+                              '37%\noff',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 14,
+                                height: 1.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   );
@@ -482,3 +613,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+// Dummy category model (replace with your actual model)
+class Category {
+  final String name;
+  final String imagePath;
+
+  Category({required this.name, required this.imagePath});
+}
+
+final List<Category> topCategories = [
+  Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
+  Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
+  Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
+  Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
+  // Category(name: 'Fruits', imagePath: 'assets/images/fruits.png'),
+  // Category(name: 'Beverages', imagePath: 'assets/images/beverages.png'),
+];
