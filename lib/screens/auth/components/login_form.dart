@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../components/auth_footer.dart';
 import '../../../components/social_buttons.dart';
@@ -45,9 +46,10 @@ class _LoginFormState extends State<LoginForm> {
             height: 48,
             child: ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  //TODO: Add login logic here
-                }
+                // if (_formKey.currentState!.validate()) {
+                //TODO: Add login logic here
+                context.go('/home');
+                // }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.themeGreen,

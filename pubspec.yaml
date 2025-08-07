@@ -53,6 +53,7 @@ flutter:
     - assets/logo/
     - assets/illustrations/
     - assets/icons/
+    - assets/images/
 
   # example:
   # fonts:
