@@ -366,9 +366,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 4,
+                itemCount: topProducts.length,
                 separatorBuilder: (_, __) => const SizedBox(width: 14),
                 itemBuilder: (_, index) {
+                  final item = topProducts[index];
                   return Container(
                     width: 150,
                     decoration: BoxDecoration(
@@ -400,21 +401,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: double.infinity,
                                 alignment: Alignment.center,
                                 child: Image.asset(
-                                  'assets/images/fortune.png',
+                                  item['image']!,
                                   fit: BoxFit.contain,
                                   height: 100,
                                 ),
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'Fortune rice',
+                                item['title']!,
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(
-                                '\$3/kg',
+                                "\$${item["price"]}",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
@@ -816,6 +817,20 @@ class _HalfDonutPainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
+
+final List<Map<String, String>> topProducts = [
+  {
+    "title": "Fortune rice",
+    "price": "5/Kg",
+    "image": "assets/images/fortune.png",
+  },
+  {
+    "title": "Fresh Avocado",
+    "price": "7/Kg",
+    "image": "assets/images/avocado.png",
+  },
+  {"title": "Tomato", "price": "2/Kg", "image": "assets/images/tomato.png"},
+];
 
 final List<Map<String, String>> categories = [
   {
