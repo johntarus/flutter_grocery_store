@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -224,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Top Categories',
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
+                      color: AppColors.darkColor,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -333,13 +335,14 @@ class _HomeScreenState extends State<HomeScreen> {
           // 🥑 Top Products
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Row(
                 children: [
                   Text(
                     'Top Products',
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
+                      color: AppColors.darkColor,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -462,28 +465,103 @@ class _HomeScreenState extends State<HomeScreen> {
           // 💰 Cashback
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Container(
-                padding: const EdgeInsets.all(16),
+                height: 200,
                 decoration: BoxDecoration(
                   color: Colors.blue.shade50,
                   borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.lightBlueColor,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                child: Row(
+                child: Stack(
                   children: [
-                    const Expanded(
-                      child: Text(
-                        'Get 25% Cashback\non all baby products',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                    // Half donut shape - now sits flush
+                    Positioned(
+                      bottom: 0,
+                      left: 23,
+                      child: CustomPaint(
+                        size: const Size(270, 125),
+                        painter: _HalfDonutPainter(
+                          outerColor: Colors.cyan.shade100,
+                          innerColor: Colors.blue.shade50,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 12),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.themeGreen,
+
+                    // Left-aligned content with its own padding
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Get 25% Cashback',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.jungleGreenColor,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'on all baby products',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.jungleGreenColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: const Text('Shop Now'),
+                    ),
+
+                    // Positioned Shop Now button
+                    Positioned(
+                      left: 28,
+                      bottom: 24,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.themeGreen,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 4,
+                          ),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          'Shop Now',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Bottom right image
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Image.asset(
+                          'assets/images/cashback.png',
+                          height: 130,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -496,20 +574,25 @@ class _HomeScreenState extends State<HomeScreen> {
           // 🧃 Deals of the week
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Row(
                 children: [
                   Text(
                     'Deals of the week',
                     style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: AppColors.darkColor,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   const Spacer(),
                   Text(
                     'Explore all',
-                    style: GoogleFonts.montserrat(color: AppColors.themeGreen),
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.themeGreen,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -517,28 +600,45 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 140,
+              height: 155,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 3,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
-                itemBuilder: (_, index) => Container(
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.local_drink),
-                      SizedBox(height: 8),
-                      Text("Soft drinks"),
-                      Text("Upto 40% off"),
-                    ],
-                  ),
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemCount: categories.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 16),
+                itemBuilder: (_, index) {
+                  final item = categories[index];
+                  return Container(
+                    width: 130,
+                    decoration: BoxDecoration(
+                      color: AppColors.themeGreenLight,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(item["image"]!, height: 70),
+                        const SizedBox(height: 8),
+                        Text(
+                          item["title"]!,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.darkColor,
+                          ),
+                        ),
+                        Text(
+                          item["discount"]!,
+                          style: GoogleFonts.montserrat(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.themeGreen,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -548,20 +648,25 @@ class _HomeScreenState extends State<HomeScreen> {
           // 🏷️ Featured Items
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Row(
                 children: [
                   Text(
                     'Featured Items',
                     style: GoogleFonts.montserrat(
                       fontSize: 18,
+                      color: AppColors.darkColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const Spacer(),
                   Text(
                     'Explore all',
-                    style: GoogleFonts.montserrat(color: AppColors.themeGreen),
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.themeGreen,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -629,4 +734,61 @@ final List<Category> topCategories = [
   Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
   // Category(name: 'Fruits', imagePath: 'assets/images/fruits.png'),
   // Category(name: 'Beverages', imagePath: 'assets/images/beverages.png'),
+];
+
+class _HalfDonutPainter extends CustomPainter {
+  final Color outerColor;
+  final Color innerColor;
+
+  _HalfDonutPainter({required this.outerColor, required this.innerColor});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 3, size.height);
+
+    final outerRadius = size.width / 3;
+    final innerRadius = outerRadius - 45; // thickness of the band
+
+    final outerPaint = Paint()..color = outerColor;
+    final innerPaint = Paint()..color = innerColor;
+
+    // Draw outer semi-circle
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: outerRadius),
+      math.pi, // start angle (180 degrees)
+      math.pi, // sweep angle (180 degrees)
+      true,
+      outerPaint,
+    );
+
+    // Draw inner semi-circle to cut it out
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: innerRadius),
+      math.pi,
+      math.pi,
+      true,
+      innerPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+final List<Map<String, String>> categories = [
+  {
+    "title": "Soft drinks",
+    "discount": "Upto 40% off",
+    "image": "assets/images/soft_drink.png",
+  },
+  {
+    "title": "Tea",
+    "discount": "Flat 30% off",
+    "image": "assets/images/tea.png",
+  },
+  {
+    "title": "Bath Oil",
+    "discount": "Min 20% off",
+    "image": "assets/images/bath_oil.png",
+  },
 ];
