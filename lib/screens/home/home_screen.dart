@@ -674,29 +674,71 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 160,
+              height: 155,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 3,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
-                itemBuilder: (_, index) => Container(
-                  width: 130,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade50,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Granola Premium Almond"),
-                      Spacer(),
-                      Text("\$22.00", style: TextStyle(color: Colors.green)),
-                      Text("1 kg"),
-                    ],
-                  ),
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemCount: featured.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 16),
+                itemBuilder: (_, index) {
+                  final item = featured[index];
+                  return Container(
+                    width: 130,
+                    decoration: BoxDecoration(
+                      color: item['bg_color'] ?? AppColors.themeGreenLight,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Centered image
+                        Image.asset(item["image"]!, height: 70),
+                        const SizedBox(height: 8),
+
+                        // Left-aligned text section
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item["title"]!,
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.44,
+                                  color: AppColors.darkColor,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Text(
+                                    "\$${item["price"]}",
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.themeGreen,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  Text(
+                                    item["quantity"]!,
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.darkColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -790,5 +832,29 @@ final List<Map<String, String>> categories = [
     "title": "Bath Oil",
     "discount": "Min 20% off",
     "image": "assets/images/bath_oil.png",
+  },
+];
+
+final List<Map<String, dynamic>> featured = [
+  {
+    "title": "Granola\nPremium Almond",
+    "price": "22.00",
+    "quantity": "1 Kg",
+    "image": "assets/images/almond.png",
+    "bg_color": AppColors.lightPinkColor,
+  },
+  {
+    "title": "SFT kiwi slice\n(Dried)",
+    "price": "4.00",
+    "quantity": "3 pcs.",
+    "image": "assets/images/kiwi.png",
+    "bg_color": AppColors.lightYellowColor,
+  },
+  {
+    "title": "SFT kiwi slice\n(Dried)",
+    "price": "5.00",
+    "quantity": "3 pcs.",
+    "image": "assets/images/spaghetti.png",
+    "bg_color": AppColors.lightCreamColor,
   },
 ];
