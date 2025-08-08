@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../constants/data.dart';
 import '../../theme/app_colors.dart';
+import '../../utils/half_donut_painter.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,27 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
   int _currentPage = 0;
   Timer? _autoSlideTimer;
-
-  final List<Map<String, dynamic>> promoSliders = [
-    {
-      'title': 'Everyday\nEssentials',
-      'discount': '10% off',
-      'color': AppColors.themeGreen,
-      'image': 'assets/images/essentials.png',
-    },
-    {
-      'title': 'Weekly\nSpecials',
-      'discount': '15% off',
-      'color': Colors.red,
-      'image': 'assets/images/specials.png',
-    },
-    {
-      'title': 'Seasonal\nOffers',
-      'discount': '20% off',
-      'color': Colors.orange,
-      'image': 'assets/images/seasonal.png',
-    },
-  ];
 
   @override
   void initState() {
@@ -488,7 +468,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       left: 23,
                       child: CustomPaint(
                         size: const Size(270, 125),
-                        painter: _HalfDonutPainter(
+                        painter: HalfDonutPainter(
                           outerColor: Colors.cyan.shade100,
                           innerColor: Colors.blue.shade50,
                         ),
@@ -761,115 +741,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// Dummy category model (replace with your actual model)
-class Category {
-  final String name;
-  final String imagePath;
-
-  Category({required this.name, required this.imagePath});
-}
-
-final List<Category> topCategories = [
-  Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
-  Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
-  Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
-  Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
-  // Category(name: 'Fruits', imagePath: 'assets/images/fruits.png'),
-  // Category(name: 'Beverages', imagePath: 'assets/images/beverages.png'),
-];
-
-class _HalfDonutPainter extends CustomPainter {
-  final Color outerColor;
-  final Color innerColor;
-
-  _HalfDonutPainter({required this.outerColor, required this.innerColor});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 3, size.height);
-
-    final outerRadius = size.width / 3;
-    final innerRadius = outerRadius - 45; // thickness of the band
-
-    final outerPaint = Paint()..color = outerColor;
-    final innerPaint = Paint()..color = innerColor;
-
-    // Draw outer semi-circle
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: outerRadius),
-      math.pi, // start angle (180 degrees)
-      math.pi, // sweep angle (180 degrees)
-      true,
-      outerPaint,
-    );
-
-    // Draw inner semi-circle to cut it out
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: innerRadius),
-      math.pi,
-      math.pi,
-      true,
-      innerPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
-
-final List<Map<String, String>> topProducts = [
-  {
-    "title": "Fortune rice",
-    "price": "5/Kg",
-    "image": "assets/images/fortune.png",
-  },
-  {
-    "title": "Fresh Avocado",
-    "price": "7/Kg",
-    "image": "assets/images/avocado.png",
-  },
-  {"title": "Tomato", "price": "2/Kg", "image": "assets/images/tomato.png"},
-];
-
-final List<Map<String, String>> categories = [
-  {
-    "title": "Soft drinks",
-    "discount": "Upto 40% off",
-    "image": "assets/images/soft_drink.png",
-  },
-  {
-    "title": "Tea",
-    "discount": "Flat 30% off",
-    "image": "assets/images/tea.png",
-  },
-  {
-    "title": "Bath Oil",
-    "discount": "Min 20% off",
-    "image": "assets/images/bath_oil.png",
-  },
-];
-
-final List<Map<String, dynamic>> featured = [
-  {
-    "title": "Granola\nPremium Almond",
-    "price": "22.00",
-    "quantity": "1 Kg",
-    "image": "assets/images/almond.png",
-    "bg_color": AppColors.lightPinkColor,
-  },
-  {
-    "title": "SFT kiwi slice\n(Dried)",
-    "price": "4.00",
-    "quantity": "3 pcs.",
-    "image": "assets/images/kiwi.png",
-    "bg_color": AppColors.lightYellowColor,
-  },
-  {
-    "title": "SFT kiwi slice\n(Dried)",
-    "price": "5.00",
-    "quantity": "3 pcs.",
-    "image": "assets/images/spaghetti.png",
-    "bg_color": AppColors.lightCreamColor,
-  },
-];
