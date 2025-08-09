@@ -51,15 +51,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              item.icon is Icon
-                                  ? (item.icon as Icon).icon
-                                  : Icons.home,
-                              color: isSelected
-                                  ? selectedItemColor
-                                  : unselectedItemColor,
-                              size: 24,
+                            SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: isSelected ? item.activeIcon : item.icon,
                             ),
+
                             if (item.label != null && item.label!.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.only(top: 4),

@@ -37,30 +37,63 @@ class _MainLayoutState extends State<MainLayout> {
         selectedItemColor: AppColors.white,
         unselectedItemColor: AppColors.white.withOpacity(0.7),
         indicatorColor: AppColors.white,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
+            icon: Image.asset('assets/icons/home.png', width: 24, height: 24),
+            activeIcon: Image.asset(
+              'assets/icons/home.png',
+              width: 24,
+              height: 24,
+            ),
+            label: "",
+          ),
+
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icons/categories.png',
+              width: 24,
+              height: 24,
+            ),
+            activeIcon: Image.asset(
+              'assets/icons/categories.png',
+              width: 24,
+              height: 24,
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_outlined),
-            activeIcon: Icon(Icons.category),
+            icon: Image.asset('assets/icons/cart.png', width: 24, height: 24),
+            activeIcon: Image.asset(
+              'assets/icons/cart.png',
+              width: 24,
+              height: 24,
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_outlined),
-            activeIcon: Icon(Icons.shopping_cart),
+            icon: Image.asset(
+              'assets/icons/favorites.png',
+              width: 24,
+              height: 24,
+            ),
+            activeIcon: Image.asset(
+              'assets/icons/favorites.png',
+              width: 24,
+              height: 24,
+            ),
             label: "",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline),
-            activeIcon: Icon(Icons.favorite),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: Image.asset(
+              'assets/icons/profile.png',
+              width: 24,
+              height: 24,
+            ),
+            activeIcon: Image.asset(
+              'assets/icons/profile.png',
+              width: 24,
+              height: 24,
+            ),
             label: "",
           ),
         ],
