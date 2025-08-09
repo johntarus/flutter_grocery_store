@@ -29,8 +29,8 @@ final List<Map<String, dynamic>> promoSliders = [
 final List<Category> topCategories = [
   Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
   Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
-  Category(name: 'Groceries', imagePath: 'assets/images/cooking_oil.png'),
-  Category(name: 'Vegetables', imagePath: 'assets/images/tomato.png'),
+  Category(name: 'Fruits', imagePath: 'assets/images/fruit.png'),
+  Category(name: 'Beverages', imagePath: 'assets/images/beverage.png'),
 ];
 
 // Top products data
@@ -69,6 +69,31 @@ final List<Map<String, String>> categories = [
 
 // Featured items data
 final List<Map<String, dynamic>> featured = [
+  {
+    "title": "Granola\nPremium Almond",
+    "price": "22.00",
+    "quantity": "1 Kg",
+    "image": "assets/images/almond.png",
+    "bg_color": AppColors.lightPinkColor,
+  },
+  {
+    "title": "SFT kiwi slice\n(Dried)",
+    "price": "4.00",
+    "quantity": "3 pcs.",
+    "image": "assets/images/kiwi.png",
+    "bg_color": AppColors.lightYellowColor,
+  },
+  {
+    "title": "SFT kiwi slice\n(Dried)",
+    "price": "5.00",
+    "quantity": "3 pcs.",
+    "image": "assets/images/spaghetti.png",
+    "bg_color": AppColors.lightCreamColor,
+  },
+];
+
+// Groceries data
+final List<Map<String, dynamic>> groceries = [
   {
     "title": "Granola\nPremium Almond",
     "price": "22.00",

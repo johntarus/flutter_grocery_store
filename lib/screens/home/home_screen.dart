@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/data.dart';
@@ -11,15 +12,8 @@ import 'components/product_card.dart';
 import 'components/promo_slider.dart';
 import 'components/top_categories.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SectionHeader(
               title: 'Top Categories',
               actionText: 'Explore all',
+              onActionPressed: () {
+                context.push('/home/explore');
+              },
             ),
           ),
           SliverToBoxAdapter(child: const TopCategories()),

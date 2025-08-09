@@ -14,7 +14,19 @@ final GoRouter router = GoRouter(
       path: '/signup',
       builder: (context, state) => const RegisterScreen(),
     ),
-    // GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-    GoRoute(path: '/home', builder: (context, state) => const MainLayout()),
+    GoRoute(
+      path: '/home',
+      builder: (context, state) {
+        final index =
+            int.tryParse(state.uri.queryParameters['tab'] ?? '0') ?? 0;
+        return MainLayout(startIndex: index);
+      },
+      routes: [
+        GoRoute(
+          path: 'explore',
+          builder: (context, state) => const MainLayout(startIndex: 1),
+        ),
+      ],
+    ),
   ],
 );

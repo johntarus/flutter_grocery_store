@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
 
 import '../components/custom_bottom_navigation_bar.dart';
+import '../screens/explore/explore.dart';
 import '../screens/home/home_screen.dart';
 import '../theme/app_colors.dart';
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
+  final int startIndex;
+
+  const MainLayout({super.key, this.startIndex = 0});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
 }
 
 class _MainLayoutState extends State<MainLayout> {
-  int _currentIndex = 0;
+  late int _currentIndex;
 
   final List<Widget> _pages = const [
     HomeScreen(),
-    Center(child: Text("Categories")), // Replace with CategoriesScreen()
-    Center(child: Text("Cart")), // Replace with CartScreen()
-    Center(child: Text("Favorites")), // Replace with FavoritesScreen()
+    ExploreScreen(),
+    Center(child: Text("Cart")),
+    Center(child: Text("Favorites")),
     Center(child: Text("Profile")),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.startIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +56,6 @@ class _MainLayoutState extends State<MainLayout> {
             ),
             label: "",
           ),
-
           BottomNavigationBarItem(
             icon: Image.asset(
               'assets/icons/categories.png',
