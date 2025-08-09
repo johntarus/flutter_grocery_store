@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../components/custom_bottom_navigation_bar.dart';
 import '../../constants/data.dart';
 import '../../theme/app_colors.dart';
 import 'components/cashback_banner.dart';
@@ -11,8 +12,15 @@ import 'components/product_card.dart';
 import 'components/promo_slider.dart';
 import 'components/top_categories.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +55,11 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
 
-          // 🎠 Promo Slider
+          // Promo Slider
           SliverToBoxAdapter(child: const PromoSlider()),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-          // 🏷️ Top Categories
+          // Top Categories
           SliverToBoxAdapter(
             child: SectionHeader(
               title: 'Top Categories',
@@ -61,7 +69,7 @@ class HomeScreen extends StatelessWidget {
           SliverToBoxAdapter(child: const TopCategories()),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-          // 🥑 Top Products
+          // Top Products
           SliverToBoxAdapter(
             child: SectionHeader(
               title: 'Top Products',
@@ -103,15 +111,43 @@ class HomeScreen extends StatelessWidget {
           const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColors.themeGreen,
-        unselectedItemColor: Colors.grey,
+      bottomNavigationBar: CustomBottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        backgroundColor: AppColors.themeGreen,
+        selectedItemColor: AppColors.white,
+        unselectedItemColor: AppColors.white.withOpacity(0.7),
+        indicatorColor: AppColors.white,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.category), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category_outlined),
+            activeIcon: Icon(Icons.category),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart_outlined),
+            activeIcon: Icon(Icons.shopping_cart),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline),
+            activeIcon: Icon(Icons.favorite),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: "",
+          ),
         ],
       ),
     );
