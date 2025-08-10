@@ -4,6 +4,7 @@ import '../components/main_layout.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/onboarding/onboarding_screen.dart';
 import '../screens/auth/register_screen.dart';
+import '../screens/category/category_screen.dart';
 
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
@@ -25,7 +26,17 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: 'explore',
           builder: (context, state) => const MainLayout(startIndex: 1),
+          routes: [
+            GoRoute(
+              path: 'category',
+              builder: (context, state) => const CategoryScreen(),
+            ),
+          ],
         ),
+        // GoRoute(
+        //   path: 'category',
+        //   builder: (context, state) => const MainLayout(startIndex: 1),
+        // ),
       ],
     ),
   ],

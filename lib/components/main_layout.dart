@@ -20,7 +20,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _pages = const [
     HomeScreen(),
     ExploreScreen(),
-    Center(child: Text("Cart")),
+    // CategoryScreen(),
     Center(child: Text("Favorites")),
     Center(child: Text("Profile")),
   ];

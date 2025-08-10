@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sg_grocery/screens/home/components/header_section.dart';
+import 'package:sg_grocery/theme/app_colors.dart';
 
-import '../../theme/app_colors.dart';
+import '../../components/custom_header.dart';
+import '../home/components/header_section.dart';
 
 class ProductList extends StatelessWidget {
   const ProductList({super.key});
@@ -104,26 +106,6 @@ class ProductList extends StatelessWidget {
   }
 }
 
-class OfferBanner extends StatelessWidget {
-  final String imagePath;
-
-  const OfferBanner({super.key, required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      height: 140,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        image: DecorationImage(image: AssetImage(imagePath), fit: BoxFit.cover),
-      ),
-    );
-  }
-}
-// ---- END MOCK WIDGETS ----
-
-// ------------------ EXPLORE SCREEN ------------------
 class ExploreScreen extends StatelessWidget {
   const ExploreScreen({super.key});
 
@@ -131,36 +113,27 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        leadingWidth: 30,
-        leading: IconButton(
-          padding: const EdgeInsets.only(left: 16),
-          icon: Image.asset('assets/icons/back.png', width: 20, height: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Explore',
-          style: GoogleFonts.montserrat(
-            color: AppColors.darkColor,
-            fontWeight: FontWeight.w700,
-            fontSize: 22,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
+      appBar: CommonHeader(
+        title: 'Explore',
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
           // Groceries Section
           SliverToBoxAdapter(
-            child: SectionHeader(title: 'Groceries', actionText: 'See all'),
+            child: SectionHeader(
+              title: 'Groceries',
+              actionText: 'See all',
+              onActionPressed: () {
+                context.push('/home/explore/category');
+              },
+            ),
           ),
           const SliverToBoxAdapter(child: ProductList()),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 26)),
 
           // Vegetables
           SliverToBoxAdapter(
@@ -168,7 +141,7 @@ class ExploreScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(child: ProductList()),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 26)),
 
           // Fruits
           SliverToBoxAdapter(
@@ -176,7 +149,7 @@ class ExploreScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(child: ProductList()),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 26)),
 
           // Dairy Products
           SliverToBoxAdapter(
@@ -187,7 +160,7 @@ class ExploreScreen extends StatelessWidget {
           ),
           const SliverToBoxAdapter(child: ProductList()),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 20)),
+          const SliverToBoxAdapter(child: SizedBox(height: 26)),
 
           // Bakery Section
           SliverToBoxAdapter(
