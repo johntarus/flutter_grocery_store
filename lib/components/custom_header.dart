@@ -28,37 +28,34 @@ class CommonHeader extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(toolbarHeight ?? kToolbarHeight);
 
   Widget _buildHeaderContent() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          if (showBackButton)
-            IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              icon: Image.asset('assets/icons/back.png', width: 20, height: 20),
-              onPressed: onBackPressed,
-            ),
-          Expanded(
-            child: Center(
-              child: Text(
-                title,
-                style: GoogleFonts.montserrat(
-                  color: AppColors.darkColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 22,
-                ),
+    return Row(
+      children: [
+        if (showBackButton)
+          IconButton(
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: Image.asset('assets/icons/back.png', width: 20, height: 20),
+            onPressed: onBackPressed,
+          ),
+        Expanded(
+          child: Center(
+            child: Text(
+              title,
+              style: GoogleFonts.montserrat(
+                color: AppColors.darkColor,
+                fontWeight: FontWeight.w700,
+                fontSize: 22,
               ),
             ),
           ),
-          if (trailing != null) trailing!,
-          if (showBackButton && trailing == null)
-            const Opacity(
-              opacity: 0,
-              child: IconButton(icon: Icon(Icons.arrow_back), onPressed: null),
-            ),
-        ],
-      ),
+        ),
+        if (trailing != null) trailing!,
+        if (showBackButton && trailing == null)
+          const Opacity(
+            opacity: 0,
+            child: IconButton(icon: Icon(Icons.arrow_back), onPressed: null),
+          ),
+      ],
     );
   }
 

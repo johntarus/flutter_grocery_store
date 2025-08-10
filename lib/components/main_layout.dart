@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../components/custom_bottom_navigation_bar.dart';
 import '../screens/explore/explore.dart';
@@ -7,8 +8,9 @@ import '../theme/app_colors.dart';
 
 class MainLayout extends StatefulWidget {
   final int startIndex;
+  final Widget? child;
 
-  const MainLayout({super.key, this.startIndex = 0});
+  const MainLayout({super.key, this.startIndex = 0, this.child});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
@@ -21,6 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
     HomeScreen(),
     ExploreScreen(),
     // CategoryScreen(),
+    Center(child: Text("Cart")),
     Center(child: Text("Favorites")),
     Center(child: Text("Profile")),
   ];
@@ -34,13 +37,17 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: widget.child ?? _pages[_currentIndex],
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          if (index == _currentIndex && widget.child != null) {
+            context.go('/home?tab=$index');
+          } else {
+            setState(() {
+              _currentIndex = index;
+            });
+          }
         },
         backgroundColor: AppColors.themeGreen,
         selectedItemColor: AppColors.white,
