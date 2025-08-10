@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../components/custom_bottom_navigation_bar.dart';
-import '../screens/explore/explore.dart';
+import '../screens/explore/explore_screen.dart';
 import '../screens/home/home_screen.dart';
 import '../theme/app_colors.dart';
 

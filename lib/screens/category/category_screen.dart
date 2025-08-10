@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sg_grocery/components/custom_header.dart';
+import 'package:sg_grocery/theme/app_colors.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
@@ -6,12 +8,13 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Categories',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        centerTitle: true,
+      appBar: CommonHeader(
+        title: 'Categories',
+        titleAlignment: TextAlign.start,
+        backIconAsset: 'assets/icons/white_back.png',
+        titleColor: AppColors.white,
+        backgroundColor: AppColors.themeGreen,
+        onBackPressed: () => Navigator.pop(context),
       ),
       body: Center(
         child: Text(

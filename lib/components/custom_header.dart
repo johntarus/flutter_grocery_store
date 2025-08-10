@@ -1,77 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sg_grocery/theme/app_colors.dart';
 
 class CommonHeader extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final bool showBackButton;
-  final VoidCallback? onBackPressed;
   final Color backgroundColor;
-  final bool asAppBar;
+  final Color titleColor;
+  final String backIconAsset;
+  final VoidCallback? onBackPressed;
+  final bool showBackButton;
+  final bool showCurvedBottom;
   final Widget? trailing;
-  final double elevation;
-  final double? toolbarHeight;
+  final TextAlign titleAlignment;
 
   const CommonHeader({
-    super.key,
+    Key? key,
     required this.title,
-    this.showBackButton = true,
-    this.onBackPressed,
     this.backgroundColor = Colors.white,
-    this.asAppBar = true,
+    this.titleColor = Colors.black,
+    required this.backIconAsset,
+    this.onBackPressed,
+    this.showBackButton = true,
+    this.showCurvedBottom = false,
     this.trailing,
-    this.elevation = 0,
-    this.toolbarHeight,
-  });
+    this.titleAlignment = TextAlign.left,
+  }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(toolbarHeight ?? kToolbarHeight);
-
-  Widget _buildHeaderContent() {
-    return Row(
-      children: [
-        if (showBackButton)
-          IconButton(
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            icon: Image.asset('assets/icons/back.png', width: 20, height: 20),
-            onPressed: onBackPressed,
-          ),
-        Expanded(
-          child: Center(
-            child: Text(
-              title,
-              style: GoogleFonts.montserrat(
-                color: AppColors.darkColor,
-                fontWeight: FontWeight.w700,
-                fontSize: 22,
-              ),
-            ),
-          ),
-        ),
-        if (trailing != null) trailing!,
-        if (showBackButton && trailing == null)
-          const Opacity(
-            opacity: 0,
-            child: IconButton(icon: Icon(Icons.arrow_back), onPressed: null),
-          ),
-      ],
-    );
-  }
+  Size get preferredSize => const Size.fromHeight(90); // taller for more padding
 
   @override
   Widget build(BuildContext context) {
-    if (asAppBar) {
-      return AppBar(
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        toolbarHeight: toolbarHeight,
-        title: _buildHeaderContent(),
-      );
-    }
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: showCurvedBottom
+            ? const BorderRadius.vertical(bottom: Radius.circular(20))
+            : BorderRadius.zero,
+      ),
+      child: SafeArea(bottom: false, child: _buildHeaderContent()),
+    );
+  }
 
-    return _buildHeaderContent();
+  Widget _buildHeaderContent() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 12.0, bottom: 16.0),
+      // main vertical space
+      child: Row(
+        children: [
+          if (showBackButton)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0), // fine-tune back icon
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                icon: Image.asset(backIconAsset, width: 30, height: 30),
+                onPressed: onBackPressed,
+              ),
+            ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                title,
+                textAlign: titleAlignment,
+                style: GoogleFonts.montserrat(
+                  color: titleColor,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 22,
+                ),
+              ),
+            ),
+          ),
+          if (trailing != null) trailing!,
+          if (showBackButton && trailing == null)
+            const Opacity(
+              opacity: 0,
+              child: IconButton(icon: Icon(Icons.arrow_back), onPressed: null),
+            ),
+        ],
+      ),
+    );
   }
 }
