@@ -10,6 +10,9 @@ class CommonHeader extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final Widget? trailing;
   final TextAlign titleAlignment;
+  final BorderRadius? borderRadius;
+  final Widget? bottomWidget;
+  final double additionalHeight;
 
   const CommonHeader({
     super.key,
@@ -21,56 +24,72 @@ class CommonHeader extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = true,
     this.trailing,
     this.titleAlignment = TextAlign.left,
+    this.borderRadius,
+    this.bottomWidget,
+    this.additionalHeight = 0.0,
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize => Size.fromHeight(80 + additionalHeight);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: backgroundColor),
-      child: SafeArea(bottom: false, child: _buildHeaderContent()),
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.zero,
+      child: Container(
+        color: backgroundColor,
+        child: SafeArea(bottom: false, child: _buildHeaderContent()),
+      ),
     );
   }
 
   Widget _buildHeaderContent() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 0),
-      child: Row(
-        children: [
-          if (showBackButton)
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                constraints: const BoxConstraints(),
-                icon: Image.asset(backIconAsset, height: 25),
-                onPressed: onBackPressed,
-              ),
-            ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                title,
-                textAlign: titleAlignment,
-                style: GoogleFonts.montserrat(
-                  color: titleColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 22,
+    return Column(
+      mainAxisSize: bottomWidget != null ? MainAxisSize.max : MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 0),
+          child: Row(
+            children: [
+              if (showBackButton)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    icon: Image.asset(backIconAsset, height: 25),
+                    onPressed: onBackPressed,
+                  ),
+                ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    title,
+                    textAlign: titleAlignment,
+                    style: GoogleFonts.montserrat(
+                      color: titleColor,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              if (trailing != null) trailing!,
+              if (showBackButton && trailing == null)
+                const Opacity(
+                  opacity: 0,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: null,
+                  ),
+                ),
+            ],
           ),
-          if (trailing != null) trailing!,
-          if (showBackButton && trailing == null)
-            const Opacity(
-              opacity: 0,
-              child: IconButton(icon: Icon(Icons.arrow_back), onPressed: null),
-            ),
-        ],
-      ),
+        ),
+        if (bottomWidget != null) const Spacer(),
+        if (bottomWidget != null) bottomWidget!,
+      ],
     );
   }
 }

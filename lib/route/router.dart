@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sg_grocery/screens/category/category_screen.dart';
+import 'package:sg_grocery/screens/product_detail/product_detail_screen.dart';
 
 import '../components/main_layout.dart';
 import '../screens/auth/login_screen.dart';
@@ -31,6 +32,11 @@ final GoRouter router = GoRouter(
               path: 'category',
               builder: (context, state) =>
                   MainLayout(startIndex: 1, child: const CategoryScreen()),
+            ),
+            GoRoute(
+              path: 'details',
+              builder: (context, state) =>
+                  MainLayout(startIndex: 1, child: const ProductDetailScreen()),
             ),
           ],
         ),
