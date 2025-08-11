@@ -4,8 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../components/custom_header.dart';
 import '../../theme/app_colors.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({super.key});
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  final List<int> quantities = List.generate(1, (index) => 0);
+  int index = 0;
+  bool isSubscribed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +22,6 @@ class ProductDetailScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
-          // Green top section with apple image
           SliverToBoxAdapter(
             child: Container(
               height: 300,
@@ -79,18 +87,81 @@ class ProductDetailScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Green Apple',
-          style: GoogleFonts.montserrat(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
+        Row(
+          children: [
+            Text(
+              'Green Apple',
+              style: GoogleFonts.montserrat(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: AppColors.darkColor,
+              ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: quantities[index] > 0
+                      ? () {
+                          setState(() {
+                            quantities[index]--;
+                          });
+                        }
+                      : null,
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Image.asset(
+                      'assets/icons/larger_remove_cart_icon.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                SizedBox(
+                  width: 32,
+                  child: Text(
+                    quantities[index].toString(),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.visible,
+                    style: GoogleFonts.montserrat(
+                      fontSize: 24,
+                      color: AppColors.themeGreen,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      quantities[index]++;
+                    });
+                  },
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: Image.asset(
+                      'assets/icons/larger_add_cart_icon.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
         const SizedBox(height: 8),
         Text(
           'Special price',
-          style: GoogleFonts.montserrat(fontSize: 16, color: Colors.grey),
+          style: GoogleFonts.montserrat(
+            fontSize: 22,
+            fontWeight: FontWeight.w400,
+            color: AppColors.themeGreen,
+          ),
         ),
         const SizedBox(height: 16),
         Row(
@@ -98,15 +169,19 @@ class ProductDetailScreen extends StatelessWidget {
             Text(
               '\$2',
               style: GoogleFonts.montserrat(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: AppColors.themeGreen,
+                fontSize: 34,
+                fontWeight: FontWeight.w700,
+                color: AppColors.darkColor,
               ),
             ),
-            const SizedBox(width: 8),
+            const Spacer(),
             Text(
               '(42% off)',
-              style: GoogleFonts.montserrat(fontSize: 16, color: Colors.grey),
+              style: GoogleFonts.montserrat(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+                color: AppColors.themeGreen,
+              ),
             ),
           ],
         ),
@@ -114,69 +189,85 @@ class ProductDetailScreen extends StatelessWidget {
         Text(
           'Description',
           style: GoogleFonts.montserrat(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            color: AppColors.darkColor,
           ),
         ),
         const SizedBox(height: 8),
         Text(
           'Green apples have less sugar and carbs, and more fiber, protein, potassium, iron, and vitamin K, taking the lead as a healthier variety, although the differences are ever so slight.',
           style: GoogleFonts.montserrat(
-            fontSize: 14,
-            color: Colors.grey,
-            height: 1.5,
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: AppColors.greyColor,
+            height: 1.56,
           ),
         ),
-        const SizedBox(height: 24),
-        Text(
-          'Subsense',
-          style: GoogleFonts.montserrat(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 40),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(8),
+            SizedBox(
+              width: 120,
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    isSubscribed = !isSubscribed;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isSubscribed
+                      ? AppColors.themeGreen
+                      : AppColors.greyBackgroundColor,
+                  foregroundColor: AppColors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 8,
+                  ),
+                  minimumSize: const Size(0, 0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  elevation: 0,
+                ),
+                child: Text(
+                  isSubscribed ? 'Subscribed' : 'Subscribe',
+                  style: GoogleFonts.montserrat(
+                    fontSize: 16,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            const SizedBox(width: 24),
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: AppColors.themeGreen),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
+                minimumSize: const Size(0, 0),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               child: Text(
-                'M',
+                'Buy Once',
                 style: GoogleFonts.montserrat(
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  color: AppColors.themeGreen,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ],
-        ),
-        const SizedBox(height: 40),
-        SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.themeGreen,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: Text(
-              'Buy Once',
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
         ),
         const SizedBox(height: 30),
         Text(
