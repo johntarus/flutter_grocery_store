@@ -273,59 +273,101 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         Text(
           'Related items',
           style: GoogleFonts.montserrat(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
             color: Colors.black,
           ),
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 120,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+          width: 120,
+          height: 140,
+          child: Stack(
             children: [
-              _buildRelatedItem('Pineapple'),
-              const SizedBox(width: 16),
-              _buildRelatedItem('Strawberry'),
-              const SizedBox(width: 16),
-              _buildRelatedItem('Grapes'),
+              // The card
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                elevation: 2,
+                margin: EdgeInsets.zero,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFFEAD1),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(8),
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/images/pineapple.png',
+                          fit: BoxFit.contain,
+                          height: 60,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 36,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFFFA83B),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(8),
+                            ),
+                          ),
+                          padding: EdgeInsets.zero,
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          'Pineapple',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Positioned(
+                bottom: 30,
+                right: -4,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFB0B0B0),
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(4),
+                      child: Image.asset(
+                        'assets/icons/add.png',
+                        width: 12,
+                        height: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
         const SizedBox(height: 40),
-      ],
-    );
-  }
-
-  Widget _buildRelatedItem(String name) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(
-            child: Text(
-              name[0],
-              style: GoogleFonts.montserrat(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          name,
-          style: GoogleFonts.montserrat(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
       ],
     );
   }
