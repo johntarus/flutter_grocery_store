@@ -1,36 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../models/cart_item.dart';
 import '../../../theme/app_colors.dart';
-
-class CartItem {
-  final String name;
-  final String weight;
-  final double originalPrice;
-  final double discountedPrice;
-  final String imageAsset;
-
-  CartItem({
-    required this.name,
-    required this.weight,
-    required this.originalPrice,
-    required this.discountedPrice,
-    required this.imageAsset,
-  });
-}
+import 'quantity_selector.dart';
 
 class CartItemWidget extends StatefulWidget {
   final CartItem item;
+  final VoidCallback? onRemove;
+  final Function(int)? onQuantityChanged;
 
-  const CartItemWidget({super.key, required this.item});
+  const CartItemWidget({
+    super.key,
+    required this.item,
+    this.onRemove,
+    this.onQuantityChanged,
+  });
 
   @override
   State<CartItemWidget> createState() => _CartItemWidgetState();
 }
 
 class _CartItemWidgetState extends State<CartItemWidget> {
-  final List<int> quantities = List.generate(1, (index) => 0);
-  int index = 0;
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -115,64 +107,30 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 width: 24,
                 height: 24,
               ),
-              onPressed: () {},
+              onPressed: widget.onRemove,
               color: AppColors.themeGreen,
             ),
           ),
           Positioned(
             right: 0,
             bottom: -20,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: quantities[index] > 0
-                      ? () {
-                          setState(() {
-                            quantities[index]--;
-                          });
-                        }
-                      : null,
-                  child: SizedBox(
-                    height: 30,
-                    child: Image.asset(
-                      'assets/icons/larger_remove_cart_icon.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                SizedBox(
-                  width: 20,
-                  child: Text(
-                    quantities[index].toString(),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    overflow: TextOverflow.visible,
-                    style: GoogleFonts.montserrat(
-                      fontSize: 16,
-                      color: AppColors.themeGreen,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      quantities[index]++;
-                    });
-                  },
-                  child: SizedBox(
-                    height: 30,
-                    child: Image.asset(
-                      'assets/icons/larger_add_cart_icon.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ],
+            child: QuantitySelector(
+              quantity: quantity,
+              canDecrease: quantity > 0,
+              onDecrease: () {
+                if (quantity > 0) {
+                  setState(() {
+                    quantity--;
+                  });
+                  widget.onQuantityChanged?.call(quantity);
+                }
+              },
+              onIncrease: () {
+                setState(() {
+                  quantity++;
+                });
+                widget.onQuantityChanged?.call(quantity);
+              },
             ),
           ),
         ],

@@ -30,34 +30,32 @@ class _AddressSelectionSectionState extends State<AddressSelectionSection> {
         ),
         const SizedBox(height: 16),
         // Address Options
-        Container(
-          child: Column(
-            children: [
-              AddressOption(
-                title: 'Home',
-                address: '4517 Washington Ave.\nManchester, Kentucky 39495',
-                icon: Icons.home_outlined,
-                isSelected: selectedDeliveryAddress == 'Home',
-                onSelected: (value) {
-                  setState(() {
-                    selectedDeliveryAddress = value;
-                  });
-                },
-              ),
-              const Divider(height: 1),
-              AddressOption(
-                title: 'Office',
-                address: '2118 Thornridge Cir. Syracuse,\nConnecticut 35624',
-                icon: Icons.business_outlined,
-                isSelected: selectedDeliveryAddress == 'Office',
-                onSelected: (value) {
-                  setState(() {
-                    selectedDeliveryAddress = value;
-                  });
-                },
-              ),
-            ],
-          ),
+        Column(
+          children: [
+            AddressOption(
+              title: 'Home',
+              address: '4517 Washington Ave.\nManchester, Kentucky 39495',
+              icon: Icons.home_outlined,
+              isSelected: selectedDeliveryAddress == 'Home',
+              onSelected: (value) {
+                setState(() {
+                  selectedDeliveryAddress = value;
+                });
+              },
+            ),
+            const Divider(height: 1),
+            AddressOption(
+              title: 'Office',
+              address: '2118 Thornridge Cir. Syracuse,\nConnecticut 35624',
+              icon: Icons.business_outlined,
+              isSelected: selectedDeliveryAddress == 'Office',
+              onSelected: (value) {
+                setState(() {
+                  selectedDeliveryAddress = value;
+                });
+              },
+            ),
+          ],
         ),
         const SizedBox(height: 16),
         // Add New Address Button

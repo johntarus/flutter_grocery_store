@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/cart_item.dart';
 import '../models/category.dart';
-import '../screens/cart/components/cart_item_widget.dart';
 import '../theme/app_colors.dart';
 
 // Promo sliders data
