@@ -2,7 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../theme/app_colors.dart';
-import '../cart_screen.dart';
+
+class CartItem {
+  final String name;
+  final String weight;
+  final double originalPrice;
+  final double discountedPrice;
+  final String imageAsset;
+
+  CartItem({
+    required this.name,
+    required this.weight,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.imageAsset,
+  });
+}
 
 class CartItemWidget extends StatefulWidget {
   final CartItem item;
