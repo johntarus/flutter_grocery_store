@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sg_grocery/screens/cart/cart_screen.dart';
 
 import '../components/custom_bottom_navigation_bar.dart';
 import '../screens/explore/explore_screen.dart';
@@ -22,8 +23,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _pages = const [
     HomeScreen(),
     ExploreScreen(),
-    // CategoryScreen(),
-    Center(child: Text("Cart")),
+    CartScreen(),
     Center(child: Text("Favorites")),
     Center(child: Text("Profile")),
   ];

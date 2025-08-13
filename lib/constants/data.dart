@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/category.dart';
+import '../screens/cart/cart_screen.dart';
 import '../theme/app_colors.dart';
 
 // Promo sliders data
@@ -115,4 +116,29 @@ final List<Map<String, dynamic>> groceries = [
     "image": "assets/images/spaghetti.png",
     "bg_color": AppColors.lightCreamColor,
   },
+];
+
+// Sample cart items
+final List<CartItem> cartItems = [
+  CartItem(
+    name: 'Shimla Apple',
+    weight: '1 kg',
+    originalPrice: 2.25,
+    discountedPrice: 2.00,
+    imageAsset: 'assets/images/pineapple.png',
+  ),
+  CartItem(
+    name: 'Basmati Rice',
+    weight: '1 kg',
+    originalPrice: 8.00,
+    discountedPrice: 4.00,
+    imageAsset: 'assets/images/pineapple.png',
+  ),
+  CartItem(
+    name: 'Organic Tomatoes',
+    weight: '1 kg',
+    originalPrice: 2.00,
+    discountedPrice: 1.00,
+    imageAsset: 'assets/images/tomato.png',
+  ),
 ];

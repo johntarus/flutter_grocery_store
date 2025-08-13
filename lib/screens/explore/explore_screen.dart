@@ -64,7 +64,10 @@ class ExploreScreen extends StatelessWidget {
       backgroundColor: AppColors.white,
       appBar: CommonHeader(
         title: 'Explore',
-        backIconAsset: 'assets/icons/black_back.png',
+        // backIconAsset: 'assets/icons/black_back.png',
+        leftPadding: 16.0,
+        titleAlignment: TextAlign.start,
+        bottomPadding: 4.0,
         onBackPressed: () => Navigator.pop(context),
       ),
       body: CustomScrollView(
