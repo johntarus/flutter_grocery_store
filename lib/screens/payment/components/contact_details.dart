@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'custom_number_field.dart';
 import 'custom_text_field.dart';
 
-class ContactDetailsSection extends StatelessWidget {
+class ContactInformationSection extends StatelessWidget {
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
+  final String selectedCountryCode;
 
-  const ContactDetailsSection({
+  const ContactInformationSection({
     super.key,
     required this.firstNameController,
     required this.lastNameController,
     required this.emailController,
     required this.phoneController,
+    required this.selectedCountryCode,
   });
 
   @override
@@ -31,64 +34,28 @@ class ContactDetailsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
+        // First Name
         CustomTextField(
           controller: firstNameController,
           hintText: 'First name',
         ),
         const SizedBox(height: 12),
+        // Last Name
         CustomTextField(controller: lastNameController, hintText: 'Last name'),
         const SizedBox(height: 12),
+        // Email
         CustomTextField(
           controller: emailController,
           hintText: 'Email',
           keyboardType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 12),
-        _buildPhoneInput(),
+        // Phone Number
+        PhoneNumberField(
+          controller: phoneController,
+          countryCode: selectedCountryCode,
+        ),
       ],
-    );
-  }
-
-  Widget _buildPhoneInput() {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F5F5),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('🇺🇸', style: TextStyle(fontSize: 16)),
-                const SizedBox(width: 4),
-                const Icon(Icons.keyboard_arrow_down, size: 16),
-              ],
-            ),
-          ),
-          Expanded(
-            child: TextFormField(
-              controller: phoneController,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: 'Phone number',
-                hintStyle: GoogleFonts.montserrat(
-                  color: const Color(0xFF9B9B9B),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                ),
-                border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 16,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
