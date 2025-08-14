@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sg_grocery/screens/profile/profile_header.dart';
-import 'package:sg_grocery/screens/profile/profile_menu.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sg_grocery/screens/profile/components/profile_header.dart';
+import 'package:sg_grocery/screens/profile/components/profile_menu.dart';
 
 import '../../components/custom_header.dart';
 
@@ -33,6 +34,13 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenu(
                 menuItems: [
                   ProfileMenuItem(
+                    icon: Icons.wallet,
+                    title: 'My Wallet',
+                    onTap: () {
+                      context.go('/home/profile/wallet');
+                    },
+                  ),
+                  ProfileMenuItem(
                     icon: Icons.receipt_long_outlined,
                     title: 'My orders',
                     onTap: () {
@@ -50,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.location_on_outlined,
                     title: 'My Addresses',
                     onTap: () {
-                      // Navigate to addresses
+                      context.go('/home/profile/addresses');
                     },
                   ),
                   ProfileMenuItem(

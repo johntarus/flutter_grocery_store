@@ -1,6 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:sg_grocery/screens/addresses/address_screen.dart';
 import 'package:sg_grocery/screens/category/category_screen.dart';
 import 'package:sg_grocery/screens/product_detail/product_detail_screen.dart';
+import 'package:sg_grocery/screens/profile/profile_screen.dart';
+import 'package:sg_grocery/screens/wallet/wallet_screen.dart';
 
 import '../components/main_layout.dart';
 import '../screens/auth/login_screen.dart';
@@ -51,6 +54,25 @@ final GoRouter router = GoRouter(
               path: 'payment',
               builder: (context, state) =>
                   const MainLayout(startIndex: 2, child: PaymentScreen()),
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'profile',
+          builder: (context, state) =>
+              const MainLayout(startIndex: 4, child: ProfileScreen()),
+          routes: [
+            GoRoute(
+              path: 'addresses',
+              builder: (context, state) {
+                return const MainLayout(startIndex: 4, child: AddressScreen());
+              },
+            ),
+            GoRoute(
+              path: 'wallet',
+              builder: (context, state) {
+                return MainLayout(startIndex: 4, child: WalletScreen());
+              },
             ),
           ],
         ),

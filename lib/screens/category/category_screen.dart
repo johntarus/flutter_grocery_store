@@ -22,6 +22,7 @@ class CategoryScreen extends StatelessWidget {
       body: ClipRRect(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
         child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           color: Colors.white,
           child: SafeArea(
             top: false,
@@ -169,8 +170,8 @@ class _ProductListState extends State<ProductList> {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      SizedBox(
-                        width: 90,
+                      Expanded(
+                        flex: 1,
                         child: ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -185,10 +186,7 @@ class _ProductListState extends State<ProductList> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(2),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 4,
-                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 4),
                             minimumSize: const Size(0, 0),
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             elevation: 0,
@@ -204,27 +202,27 @@ class _ProductListState extends State<ProductList> {
                           ),
                         ),
                       ),
-                      const Spacer(),
-                      OutlinedButton(
-                        onPressed: () {},
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 6,
-                            vertical: 4,
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 1,
+                        child: OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            side: const BorderSide(color: AppColors.themeGreen),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            minimumSize: const Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          side: const BorderSide(color: AppColors.themeGreen),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                          minimumSize: const Size(0, 0),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: Text(
-                          'Buy Once',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 12,
-                            color: AppColors.themeGreen,
-                            fontWeight: FontWeight.w600,
+                          child: Text(
+                            'Buy Once',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 12,
+                              color: AppColors.themeGreen,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),

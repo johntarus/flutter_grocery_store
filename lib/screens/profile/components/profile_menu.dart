@@ -23,7 +23,7 @@ class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     super.key,
     required this.menuItems,
-    this.backgroundColor = const Color(0xFFF8F9FA),
+    this.backgroundColor = const Color(0xFFF3FFF5),
     this.borderRadius = 30,
     this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
   });
@@ -94,11 +94,6 @@ class ProfileMenu extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: isLogout ? Colors.red : Colors.black87,
           ),
-        ),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          color: Colors.grey[400],
-          size: 16,
         ),
       ),
     );

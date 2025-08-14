@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../theme/app_colors.dart';
@@ -61,13 +62,19 @@ class _AddressSelectionSectionState extends State<AddressSelectionSection> {
         // Add New Address Button
         Align(
           alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              '+ Add New Address',
-              style: GoogleFonts.montserrat(
-                color: AppColors.themeGreen,
-                fontWeight: FontWeight.w600,
+          child: GestureDetector(
+            onTap: () {
+              context.go('/home/profile/addresses');
+            },
+
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                '+ Add New Address',
+                style: GoogleFonts.montserrat(
+                  color: AppColors.themeGreen,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ),
