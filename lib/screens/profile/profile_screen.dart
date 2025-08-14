@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.receipt_long_outlined,
                     title: 'My orders',
                     onTap: () {
-                      // Navigate to orders
+                      context.go('/home/profile/orders');
                     },
                   ),
                   ProfileMenuItem(
