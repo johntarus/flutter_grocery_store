@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sg_grocery/theme/app_colors.dart';
 
@@ -44,12 +45,17 @@ class _AddressScreenState extends State<AddressScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    Text(
-                      '+ Add New Address',
-                      style: GoogleFonts.montserrat(
-                        color: AppColors.themeGreen,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/home/profile/addresses/new_address');
+                      },
+                      child: Text(
+                        '+ Add New Address',
+                        style: GoogleFonts.montserrat(
+                          color: AppColors.themeGreen,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -91,7 +97,7 @@ class _AddressScreenState extends State<AddressScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to add address screen
+          context.go('/home/profile/addresses/new_address');
         },
         backgroundColor: AppColors.themeGreen,
         child: const Icon(Icons.add, color: Colors.white),

@@ -7,6 +7,7 @@ import 'package:sg_grocery/screens/profile/profile_screen.dart';
 import 'package:sg_grocery/screens/wallet/wallet_screen.dart';
 
 import '../components/main_layout.dart';
+import '../screens/addresses/components/new_address.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/onboarding/onboarding_screen.dart';
 import '../screens/auth/register_screen.dart';
@@ -65,10 +66,18 @@ final GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: 'addresses',
-              builder: (context, state) {
-                return const MainLayout(startIndex: 4, child: AddressScreen());
-              },
+              builder: (context, state) =>
+                  const MainLayout(startIndex: 4, child: AddressScreen()),
+              routes: [
+                GoRoute(
+                  path: 'new_address',
+                  builder: (context, state) {
+                    return const MainLayout(startIndex: 4, child: NewAddress());
+                  },
+                ),
+              ],
             ),
+
             GoRoute(
               path: 'wallet',
               builder: (context, state) {

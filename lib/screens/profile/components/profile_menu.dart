@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sg_grocery/theme/app_colors.dart';
 
 class ProfileMenuItem {
   final IconData icon;
@@ -89,10 +91,10 @@ class ProfileMenu extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: isLogout ? Colors.red : Colors.black87,
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: isLogout ? Colors.red : AppColors.lightGreyColor,
           ),
         ),
       ),

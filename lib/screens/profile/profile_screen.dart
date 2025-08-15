@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sg_grocery/screens/profile/components/profile_header.dart';
 import 'package:sg_grocery/screens/profile/components/profile_menu.dart';
 
@@ -107,9 +108,12 @@ class ProfileScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          title: const Text(
+          title: Text(
             'Log Out',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            style: GoogleFonts.montserrat(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+            ),
           ),
           content: const Text(
             'Are you sure you want to log out?',
