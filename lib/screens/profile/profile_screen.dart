@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                     icon: Icons.quiz_outlined,
                     title: 'FAQ',
                     onTap: () {
-                      // Navigate to FAQ
+                      context.go('/home/profile/faq');
                     },
                   ),
                   ProfileMenuItem(

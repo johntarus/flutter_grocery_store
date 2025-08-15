@@ -13,6 +13,7 @@ import '../screens/auth/onboarding/onboarding_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/cart/cart_screen.dart';
 import '../screens/payment/payment_screen.dart';
+import '../screens/profile/components/faq.dart';
 
 final GoRouter router = GoRouter(
   routes: <RouteBase>[
@@ -76,6 +77,12 @@ final GoRouter router = GoRouter(
                   },
                 ),
               ],
+            ),
+            GoRoute(
+              path: 'faq',
+              builder: (context, state) {
+                return MainLayout(startIndex: 4, child: const Faq());
+              },
             ),
 
             GoRoute(
